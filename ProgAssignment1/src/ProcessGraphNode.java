@@ -7,6 +7,7 @@ public class ProcessGraphNode {
     private ArrayList<ProcessGraphNode> parents = new ArrayList<>();
     // point to all the children
     private ArrayList<ProcessGraphNode> children = new ArrayList<>();
+
     // properties of ProcessGraphNode
     private int nodeId;
     private File inputFile;
@@ -15,20 +16,18 @@ public class ProcessGraphNode {
     private boolean runnable;
     private boolean executed;
 
-    // nodeId corresponds to the line number in graph text file
+
     public ProcessGraphNode(int nodeId ) {
         this.nodeId = nodeId;
-        this.runnable = false;
-        this.executed = false;
+        this.runnable=false;
+        this.executed=false;
     }
 
     public void setRunnable() {
         this.runnable = true;
     }
 
-    public void setNotRunable() {
-        this.runnable = false;
-    }
+    public void setNotRunnable() {this.runnable = false;}
 
     public void setExecuted() {
         this.executed = true;
@@ -89,13 +88,11 @@ public class ProcessGraphNode {
         return nodeId;
     }
 
+    // This method is not implemented as we have implemented a
+    // different way of checking if all nodes are executed
     public synchronized boolean allParentsExecuted(){
         boolean ans = true;
-        for (ProcessGraphNode child : this.getChildren()) {
-            if (child.isExecuted()) {
-                return false;
-            }
-        }
+
         for (ProcessGraphNode parent:this.getParents()) {
             if (!parent.isExecuted())
                 ans=false;
